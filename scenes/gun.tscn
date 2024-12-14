@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://csketwypyb2kh"]
+
+[ext_resource type="Texture2D" uid="uid://ey01s07l1yrf" path="res://art/gun.png" id="1_mci5p"]
+[ext_resource type="Script" path="res://code/gun.gd" id="1_raxcn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wrdr"]
+size = Vector2(12, 32)
+
+[node name="Gun" type="StaticBody2D"]
+script = ExtResource("1_raxcn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_mci5p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0wrdr")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.7
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

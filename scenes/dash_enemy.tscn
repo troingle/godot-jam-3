@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://ggi2ssy6qsby"]
+
+[ext_resource type="Texture2D" uid="uid://dxo3hx7jxv3xm" path="res://art/inspector.png" id="1_ir6ac"]
+[ext_resource type="Script" path="res://code/dash_enemy.gd" id="1_thfe1"]
+[ext_resource type="PackedScene" uid="uid://cqlkaablwbe0s" path="res://scenes/text_particle.tscn" id="3_nkr4a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4ac3"]
+size = Vector2(12, 28)
+
+[sub_resource type="Animation" id="Animation_k6lgj"]
+resource_name = "wobble"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10472, 0.0, -0.10472]
+}
+
+[sub_resource type="Animation" id="Animation_7uqvh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ha1f8"]
+_data = {
+"RESET": SubResource("Animation_7uqvh"),
+"wobble": SubResource("Animation_k6lgj")
+}
+
+[node name="DashEnemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_thfe1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_ir6ac")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_p4ac3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ha1f8")
+}
+
+[node name="TextParticle" parent="." instance=ExtResource("3_nkr4a")]
+position = Vector2(0, -2)

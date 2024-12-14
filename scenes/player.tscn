@@ -1,0 +1,247 @@
+[gd_scene load_steps=21 format=3 uid="uid://dis8x52emh6cb"]
+
+[ext_resource type="Texture2D" uid="uid://dsul12djdwu0w" path="res://art/worker.png" id="1_3je45"]
+[ext_resource type="Script" path="res://code/player.gd" id="1_qlvg3"]
+[ext_resource type="Texture2D" uid="uid://7mdxqmxjmx5k" path="res://art/light.png" id="3_slrk5"]
+[ext_resource type="FontFile" uid="uid://r7gw25ce3uso" path="res://fonts/SHPinscher-Regular.otf" id="4_tftx2"]
+[ext_resource type="Texture2D" uid="uid://cr7gy03kakch4" path="res://art/npc.png" id="4_y43kg"]
+[ext_resource type="Texture2D" uid="uid://cpfiyj3fab6xf" path="res://art/dead.png" id="6_nwqdx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpvy5"]
+atlas = ExtResource("1_3je45")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37ueq"]
+atlas = ExtResource("1_3je45")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daw4o"]
+atlas = ExtResource("1_3je45")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2kro"]
+atlas = ExtResource("1_3je45")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl84q"]
+atlas = ExtResource("1_3je45")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihbl6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpvy5")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37ueq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daw4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2kro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl84q")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ac2y"]
+size = Vector2(24, 31)
+
+[sub_resource type="Animation" id="Animation_sys1v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ck1n8"]
+resource_name = "wobble"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10472, 0.0, -0.10472]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3poxc"]
+_data = {
+"RESET": SubResource("Animation_sys1v"),
+"wobble": SubResource("Animation_ck1n8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3np4h"]
+size = Vector2(26, 34)
+
+[sub_resource type="Animation" id="Animation_uqtb7"]
+resource_name = "death_screen"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathScreen:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(576, 317), Vector2(576, 317), Vector2(576, 983)]
+}
+
+[sub_resource type="Animation" id="Animation_meqvg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DeathScreen:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DeathScreen:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(576, 326)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ue80"]
+_data = {
+"RESET": SubResource("Animation_meqvg"),
+"death_screen": SubResource("Animation_uqtb7")
+}
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_qlvg3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ihbl6")
+animation = &"walk"
+autoplay = "stand"
+frame = 1
+frame_progress = 0.465287
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_2ac2y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3poxc")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 1.5
+texture = ExtResource("3_slrk5")
+texture_scale = 5.5
+
+[node name="Belter" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="Check" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Check"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3np4h")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+texture_filter = 1
+position = Vector2(32.4456, 36)
+scale = Vector2(1.6807, 1.6807)
+texture = ExtResource("4_y43kg")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16.1053)
+
+[node name="Count" type="Label" parent="CanvasLayer"]
+offset_left = 57.0
+offset_top = 12.0
+offset_right = 2004.0
+offset_bottom = 852.0
+scale = Vector2(0.055485, 0.055485)
+theme_override_fonts/font = ExtResource("4_tftx2")
+theme_override_font_sizes/font_size = 700
+text = "999"
+autowrap_mode = 2
+
+[node name="DeathScreen" type="Node2D" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(576, 326)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/DeathScreen"]
+offset_left = -576.0
+offset_top = -316.0
+offset_right = 576.0
+offset_bottom = 331.0
+color = Color(0.0823529, 0.0509804, 0.0470588, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/DeathScreen"]
+texture_filter = 1
+scale = Vector2(1.41365, 1.41365)
+texture = ExtResource("6_nwqdx")
+
+[node name="DeathAnim" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+"": SubResource("AnimationLibrary_3ue80")
+}
+
+[node name="DeathLockTimer" type="Timer" parent="."]
+wait_time = 1.1
+one_shot = true
+
+[connection signal="timeout" from="Belter" to="." method="_on_belter_timeout"]
+[connection signal="body_entered" from="Check" to="." method="_on_check_body_entered"]
+[connection signal="timeout" from="DeathLockTimer" to="." method="_on_death_lock_timer_timeout"]

@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://fqumg6jkv7ov"]
+
+[ext_resource type="Script" path="res://code/npc.gd" id="1_8ffw0"]
+[ext_resource type="Texture2D" uid="uid://cr7gy03kakch4" path="res://art/npc.png" id="1_ujuwu"]
+[ext_resource type="Texture2D" uid="uid://1o6kj8f4du2p" path="res://art/circle.png" id="3_g308d"]
+[ext_resource type="PackedScene" uid="uid://cqlkaablwbe0s" path="res://scenes/text_particle.tscn" id="4_4v7np"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0slxw"]
+atlas = ExtResource("1_ujuwu")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuy7v"]
+atlas = ExtResource("1_ujuwu")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sgqe8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0slxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuy7v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="NPC" type="Node2D" groups=["npc"]]
+script = ExtResource("1_8ffw0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_sgqe8")
+autoplay = "default"
+frame_progress = 0.0654906
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 1.3
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.9
+randomness = 1.0
+lifetime_randomness = 1.0
+texture = ExtResource("3_g308d")
+direction = Vector2(0, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 110.0
+scale_amount_min = 0.5
+scale_amount_max = 0.7
+
+[node name="TextParticle" parent="." instance=ExtResource("4_4v7np")]
+visible = false
